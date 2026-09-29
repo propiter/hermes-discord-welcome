@@ -1,0 +1,68 @@
+name: discord-welcome
+version: 0.1.0
+manifest_version: 2
+api_version: 1
+kind: standalone
+description: Greet new Discord members in the channel of the invite they used, with a
+  self-service "set your name" button, an optional staff notice (who invited them, account age)
+  and a join-wave guard. No LLM calls.
+author: Pedro Rodriguez (propiter)
+license: MIT
+homepage: https://github.com/propiter/hermes-discord-welcome
+platforms: [linux, macos, windows]
+tags: [discord, welcome, onboarding, members]
+external_dependencies:
+  - Discord bot with "Server Members Intent" enabled (Developer Portal -> Bot)
+  - '"Manage Server" permission to read invites (optional: without it, greets in the fallback channel)'
+config_schema:
+  enabled:
+    type: bool
+    default: true
+    description: Greet new members.
+  language:
+    type: str
+    default: en
+    description: Built-in texts language (en, es).
+  message:
+    type: str
+    default: ""
+    description: 'Custom greeting. Placeholders: {mention} {name} {server} {bot} {member_count}.
+      Empty = built-in text.'
+  greet_in_invite_channel:
+    type: bool
+    default: true
+    description: Greet in the channel the invite points to (if the newcomer can see it).
+  greet_channel:
+    type: str
+    default: ""
+    description: Channel ID to ALWAYS greet in (overrides the invite channel).
+  fallback_channel:
+    type: str
+    default: ""
+    description: Channel ID used when the invite can't be identified. Empty = the server's system
+      channel.
+  notify_channel:
+    type: str
+    default: ""
+    description: Private channel ID for staff notices (who joined, invite, inviter, account age,
+      join waves). Empty = off.
+  nickname_button:
+    type: bool
+    default: true
+    description: Add a "set your name" button to the greeting.
+  raid_threshold:
+    type: int
+    default: 5
+    description: Joins inside the window that pause greetings. 0 = off.
+  raid_window_seconds:
+    type: int
+    default: 60
+    description: Window for the join-wave guard, in seconds.
+  ignore_bots:
+    type: bool
+    default: true
+    description: Do not greet bots.
+  guilds:
+    type: list
+    default: []
+    description: Server IDs to act on. Empty = every server the bot is in.

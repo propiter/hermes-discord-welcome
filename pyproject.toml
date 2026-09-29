@@ -1,0 +1,10 @@
+[project]
+name = "hermes-discord-welcome"
+version = "0.1.0"
+description = "Hermes plugin: greet new Discord members in the channel of the invite they used."
+requires-python = ">=3.11"
+license = "MIT"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
